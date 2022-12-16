@@ -1,8 +1,7 @@
 ﻿using BepInEx.Logging;
 using HarmonyLib;
+using PotionCraft.Assemblies.DataBaseSystem.PreparedObjects;
 using PotionCraft.LocalizationSystem;
-using PotionCraft.ManagersSystem.Game;
-using QFSW.QC;
 
 namespace Toolbar
 {
@@ -10,10 +9,10 @@ namespace Toolbar
     {
         static ManualLogSource Log => ToolbarPlugin.Log;
 
-        [HarmonyPostfix, HarmonyPatch(typeof(LocalizationManager), "ParseLocalizationData")]
-        public static void ParseLocalizationData_Postfix()
+        [HarmonyPostfix, HarmonyPatch(typeof(LocalizationManager), "LoadLocalizationData")]
+        public static void LoadLocalizationData_Postfix(ref LocalizationData __result)
         {
-            LocalizationManager.textData[LocalizationManager.Locale.en].AddText("toolbar_opentoolbar_tooltip", "Mod Toolbar");
+            __result.Add((int)LocalizationManager.Locale.en, "toolbar_opentoolbar_tooltip", "Mod Toolbar");
         }
     }
 }

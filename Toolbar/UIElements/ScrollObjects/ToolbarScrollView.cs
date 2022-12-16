@@ -70,9 +70,6 @@ namespace Toolbar.UIElements.ScrollObjects
         {
             thisCollider.size = newSize;
             contentColliderSize = thisCollider.size;
-
-            Update();
-            LateUpdate();
         }
 
         public Content content;

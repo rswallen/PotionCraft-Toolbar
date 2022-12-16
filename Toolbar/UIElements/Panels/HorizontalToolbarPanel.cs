@@ -1,5 +1,4 @@
 ﻿using PotionCraft.ObjectBased.UIElements.Scroll;
-using System;
 using Toolbar.UIElements.Buttons;
 using UnityEngine;
 
@@ -47,7 +46,6 @@ namespace Toolbar.UIElements.Panels
 
             panel.maskOffset = new(-0.3f, -0.2f);
 
-            panel.IsOpen = true;
             return panel;
         }
 

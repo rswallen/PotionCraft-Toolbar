@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>0Toolbar</AssemblyName>
     <Description>Utility plugin that creates a toolbar that other mods can use</Description>
-    <Version>0.1.0</Version>
+    <Version>1.0.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -40,9 +40,13 @@
       <HintPath>..\..\PotionCraftLibs\PotionCraft.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PotionCraft.DataBaseSystem">
+      <HintPath>..\..\PotionCraftLibs\PotionCraft.DataBaseSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PotionCraft.Scripts">
       <HintPath>..\..\PotionCraftLibs\PotionCraft.Scripts.dll</HintPath>
-      <Private>False</Private>
+	  <Private>False</Private>
     </Reference>
     <Reference Include="PotionCraft.Settings">
       <HintPath>..\..\PotionCraftLibs\PotionCraft.Settings.dll</HintPath>
@@ -50,7 +54,7 @@
     </Reference>
     <Reference Include="QFSW.QC">
       <HintPath>..\..\PotionCraftLibs\QFSW.QC.dll</HintPath>
-      <Private>False</Private>
+	  <Private>False</Private>
     </Reference>
   </ItemGroup>
 </Project>

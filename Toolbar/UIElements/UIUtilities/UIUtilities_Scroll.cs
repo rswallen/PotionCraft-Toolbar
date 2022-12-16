@@ -31,6 +31,7 @@ namespace Toolbar.UIElements
             clone.name = typeof(Scroll).Name;
 
             var pointer = clone.GetComponentInChildren<ScrollPointer>();
+            pointer.activeOnStart = false;
             pointer.spriteRenderer.sortingLayerID = SortingLayerID;
             pointer.spriteRenderer.sortingOrder = 540;
             pointer.raycastPriorityLevel = -21500;

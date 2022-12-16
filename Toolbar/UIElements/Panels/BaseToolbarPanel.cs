@@ -16,7 +16,7 @@ namespace Toolbar.UIElements.Panels
         /// <summary>
         /// Reference to plugin logger for debugging purposes. For internal use only.
         /// </summary>
-        internal static ManualLogSource Log => ToolbarPlugin.Log;
+        internal protected static ManualLogSource Log => ToolbarPlugin.Log;
 
         /// <summary>
         /// Constructor for creating a toolbar panel of type T.
@@ -65,7 +65,7 @@ namespace Toolbar.UIElements.Panels
                 panel.scrollview.settings = ScriptableObject.CreateInstance<ScrollViewSettings>();
                 panel.scrollview.settings.changeByScroll = 1.0f;
                 panel.scrollview.settings.contentMoveAnimTime = 0.1f;
-                panel.scrollview.settings.scrollDeadZone = 0.1f;
+                panel.scrollview.settings.scrollByMouseWheelDeadZone = 0.1f;
             }
 
             // Make ContentAnchor GameObject
@@ -88,6 +88,7 @@ namespace Toolbar.UIElements.Panels
                     contentObj.SetActive(true);
                     panel.scrollview.content = contentObj.AddComponent<Content>();
                     panel.scrollview.content.transform.SetParent(panel.contentAnchor.transform, false);
+                    panel.scrollview.content.transform.localPosition = Vector2.zero;
                 }
             }
 
@@ -191,11 +192,12 @@ namespace Toolbar.UIElements.Panels
                 }
             }
         }
-        private bool isOpen;
+        private bool isOpen = false;
 
         public virtual void Start()
         {
-            IsOpen = false;
+            //IsOpen = false;
+            UpdateOpened();
         }
 
         /// <summary>
@@ -221,8 +223,8 @@ namespace Toolbar.UIElements.Panels
             if (refill)
             {
                 Refill();
-                UpdateParentButtonLocked();
             }
+            UpdateParentButtonLocked();
             return true;
         }
 
@@ -249,8 +251,8 @@ namespace Toolbar.UIElements.Panels
             if (refill)
             {
                 Refill();
-                UpdateParentButtonLocked();
             }
+            UpdateParentButtonLocked();
             return true;
         }
 

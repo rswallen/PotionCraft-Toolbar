@@ -34,6 +34,7 @@ namespace Toolbar.UIElements.Buttons
             button.spriteRendererScratches.color = Color.black;
 
             button.IsActive = true;
+            button.Locked = true;
             return button;
         }
 
@@ -48,7 +49,12 @@ namespace Toolbar.UIElements.Buttons
             base.Awake();
             Managers.Menu.onCurrentMenuChanged.AddListener(delegate ()
             {
-                Locked = Managers.Menu.IsMenuOpened;
+                if (Managers.Menu.IsMenuOpened)
+                {
+                    Locked = true;
+                    return;
+                }
+                SubPanel.UpdateParentButtonLocked();
             });
             Locked = true;
         }

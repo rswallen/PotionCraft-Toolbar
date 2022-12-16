@@ -7,7 +7,7 @@ namespace Toolbar.UIElements
     {
         internal static ManualLogSource Log => ToolbarPlugin.Log;
 
-        public static readonly string SortingLayerName = "ConfirmationWindow";
+        public static readonly string SortingLayerName = "TutorialHint";
         public static int SortingLayerID
         {
             get => SortingLayer.NameToID(SortingLayerName);

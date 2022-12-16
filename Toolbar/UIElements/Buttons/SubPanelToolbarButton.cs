@@ -20,6 +20,8 @@ namespace Toolbar.UIElements.Buttons
             button.SubPanel = HorizontalToolbarPanel.Create(button.Anchor, button);
             button.SubPanel.transform.localPosition = new(0f, -0.1f);
             button.SubPanel.UID = panelUID;
+
+            button.Locked = true;
             return (T)button;
         }
 

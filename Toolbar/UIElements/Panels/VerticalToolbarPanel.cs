@@ -39,7 +39,6 @@ namespace Toolbar.UIElements.Panels
 
             panel.maskOffset = new(-0.2f, -0.3f);
 
-            panel.IsOpen = true;
             return panel;
         }
 
