@@ -1,5 +1,4 @@
 ﻿using PotionCraft.ScriptableObjects;
-using System;
 using System.IO;
 using UnityEngine;
 
@@ -28,7 +27,7 @@ namespace Toolbar
                 filterMode = FilterMode.Bilinear,
             };
 
-            bool result = !output.LoadImage(data);
+            bool result = output.LoadImage(data);
             if (!result)
             {
                 UnityEngine.Object.Destroy(output);
