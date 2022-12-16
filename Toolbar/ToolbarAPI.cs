@@ -1,4 +1,5 @@
 ﻿using PotionCraft.ObjectBased.UIElements.Tooltip;
+using PotionCraft.ScriptableObjects;
 using System;
 using System.Linq;
 using Toolbar.Extensions;
@@ -43,8 +44,9 @@ namespace Toolbar
         /// Creates a custom toolbar button of type T.
         /// </summary>
         /// <typeparam name="T">Type of button to create. Must derive from BaseToolbarButton.</typeparam>
+        /// <param name="buttonUID">Unique string to identify the button by. Cannot be null or empty</param>
         /// <returns>Reference to freshly create toolbar button of type T.</returns>
-        public static T CreateCustomButton<T>() where T : BaseToolbarButton
+        public static T CreateCustomButton<T>(string buttonUID) where T : BaseToolbarButton
         {
             if (!IsInitialised)
             {
@@ -57,78 +59,111 @@ namespace Toolbar
                 return null;
             }
 
-            return BaseToolbarButton.Create<T>();
+            if (DoesToolbarButtonExist(buttonUID))
+            {
+                return null;
+            }
+
+            var button = BaseToolbarButton.Create<T>();
+            button.UID = buttonUID;
+            ToolbarManager.Buttons.Add(button);
+            return button;
         }
 
         /// <summary>
         /// Creates a custom subpanel toolbar button of type T.
         /// </summary>
         /// <typeparam name="T">Type of button to create. Must derive from SubPanelToolbarButton.</typeparam>
+        /// <param name="buttonUID">Unique string to identify the button by. Cannot be null or empty</param>
         /// <param name="panelUID">Unique string to identify the panel by. Cannot be null or empty</param>
         /// <returns>Reference to freshly create toolbar button of type T.</returns>
-        public static T CreateCustomSubPanelButton<T>(string panelUID) where T : SubPanelToolbarButton
+        public static T CreateCustomSubPanelButton<T>(string buttonUID, string panelUID) where T : SubPanelToolbarButton
         {
             if (!IsInitialised)
             {
                 return null;
             }
 
-            if (DoesToolbarPanelExist(panelUID))
+            if (DoesToolbarButtonExist(buttonUID) || DoesToolbarPanelExist(panelUID))
             {
                 return null;
             }
 
             var button = SubPanelToolbarButton.Create<T>(panelUID);
+            button.UID = buttonUID;
+            ToolbarManager.Buttons.Add(button);
             ToolbarManager.SubPanels.Add(button.SubPanel);
+
             return button;
         }
 
         /// <summary>
         /// Creates a DelegateToolbarButton with custom Sprite, click callback and tooltip callback.
         /// </summary>
+        /// <param name="buttonUID">Unique string to identify the button by. Cannot be null or empty</param>
         /// <param name="icon">Sprite to be used to display the button. Can be null.</param>
         /// <param name="onRelease">Function to call when button is clicked. Should be a static function that returns void and takes 0 arguments. Can be null.</param>
         /// <param name="getTooltip">Function to call when button is clicked. Should be a static function that returns TooltipContent and takes 0 arguments. Can be null.</param>
         /// <returns></returns>
-        public static DelegateToolbarButton CreateDelegateButton(Sprite icon, Action onRelease, Func<TooltipContent> getTooltip)
+        public static DelegateToolbarButton CreateDelegateButton(string buttonUID, Sprite icon, Action onRelease, Func<TooltipContent> getTooltip)
         {
             if (!IsInitialised)
             {
                 return null;
             }
-            return DelegateToolbarButton.Create(icon, onRelease, getTooltip);
+
+            if (DoesToolbarButtonExist(buttonUID))
+            {
+                return null;
+            }
+
+            var button = DelegateToolbarButton.Create(icon, onRelease, getTooltip);
+            button.UID = buttonUID;
+            ToolbarManager.Buttons.Add(button);
+            return button;
         }
 
         /// <summary>
         /// Creates a ConCmdToolbarButton with custom Sprite and command.
         /// </summary>
+        /// <param name="buttonUID">Unique string to identify the button by. Cannot be null or empty</param>
         /// <param name="icon">Sprite to be used to display the button. Can be null.</param>
         /// <param name="command">Command to invoke when button is clicked. Include all arguments in the string.</param>
         /// <returns></returns>
-        public static ConCmdToolbarButton CreateConCmdButton(Sprite icon, string command)
+        public static ConCmdToolbarButton CreateConCmdButton(string buttonUID, Sprite icon, string command)
         {
             if (!IsInitialised)
             {
                 return null;
             }
-            return ConCmdToolbarButton.Create(icon, command);
+
+            if (DoesToolbarButtonExist(buttonUID))
+            {
+                return null;
+            }
+
+            var button = ConCmdToolbarButton.Create(icon, command);
+            button.UID = buttonUID;
+            ToolbarManager.Buttons.Add(button);
+            return button;
         }
 
         /// <summary>
         /// Creates a SubPanelToolbarButton with custom Sprite.
         /// </summary>
+        /// <param name="buttonUID">Unique string to identify the button by. Cannot be null or empty</param>
         /// <param name="icon">Sprite to be used to display the button. Can be null.</param>
         /// <param name="panelUID">Unique string to identify the panel by. Cannot be null or empty</param>
         /// <param name="getTooltip">Function to call when button is clicked. Should be a static function that returns TooltipContent and takes 0 arguments. Can be null.</param>
         /// <returns></returns>
-        public static SubPanelToolbarButton CreateSubPanelButton(Sprite icon, string panelUID, Func<TooltipContent> getTooltip)
+        public static SubPanelToolbarButton CreateSubPanelButton(string buttonUID, Sprite icon, string panelUID, Func<TooltipContent> getTooltip)
         {
             if (!IsInitialised)
             {
                 return null;
             }
 
-            var button = CreateCustomSubPanelButton<SubPanelToolbarButton>(panelUID);
+            var button = CreateCustomSubPanelButton<SubPanelToolbarButton>(buttonUID, panelUID);
             if (button != null)
             {
                 button.spriteRenderer = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
@@ -137,6 +172,16 @@ namespace Toolbar
                 button.getTooltip = getTooltip;
             }
             return button;
+        }
+
+        /// <summary>
+        /// Indicates whether a toolbar button with the given buttonUID exists.
+        /// </summary>
+        /// <param name="buttonUID">UID used to identify the panel.</param>
+        /// <returns>True if panel exists, false otherwise.</returns>
+        public static bool DoesToolbarButtonExist(string buttonUID)
+        {
+            return ToolbarManager.Buttons.Any(x => x.UID.Equals(buttonUID, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>

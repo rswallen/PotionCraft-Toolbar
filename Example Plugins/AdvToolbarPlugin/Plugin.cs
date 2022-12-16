@@ -12,6 +12,7 @@ namespace AdvToolbarPlugin
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
+        internal static int buttonNumLast = 0;
 
         private void Awake()
         {
@@ -26,15 +27,16 @@ namespace AdvToolbarPlugin
 
         private void ButtonSetup()
         {
-            var button = RotatingIconToolbarButton.Create();
+            var button = RotatingIconToolbarButton.Create("advtoolbarplugin.button.rotating");
             button.IsActive = true;
             ToolbarAPI.AddButtonToRootPanel(button);
         }
 
         [Command("ATP-MakeMagicButtonPanel", "Command that adds a given number of MagicToolbarButtons to a subpanel of a given panelURI", true, true, Platform.AllPlatforms, MonoTargetType.All)]
-        private static void MakeMagicButtonPanel(string panelURI, int numButtons)
+        private static void MakeMagicButtonPanel(string uid, int numButtons)
         {
-            if (ToolbarAPI.DoesToolbarPanelExist(panelURI))
+            var panelUID = "advtoolbarplugin.panel." + uid;
+            if (ToolbarAPI.DoesToolbarPanelExist(panelUID))
             {
                 Log.LogInfo("ToolbarPanel with that URI already exists");
                 return;
@@ -42,7 +44,9 @@ namespace AdvToolbarPlugin
 
             var iconName = ToolbarUtils.GetRandomIcon().name;
             var sprite = ToolbarUtils.GetSpriteFromColoredIcon(iconName, true);
-            var button = ToolbarAPI.CreateSubPanelButton(sprite, panelURI, delegate ()
+            var buttonUID = "advtoolbarplugin.button." + uid;
+            
+            var button = ToolbarAPI.CreateSubPanelButton(buttonUID, sprite, panelUID, delegate ()
             {
                 return new()
                 {
@@ -57,9 +61,10 @@ namespace AdvToolbarPlugin
             button.IsActive = true;
             ToolbarAPI.AddButtonToRootPanel(button);
 
-            for (int i = 0; i < numButtons; i++)
+            for (int i = buttonNumLast; i < numButtons; i++)
             {
-                var button2 = MagicToolbarButton.Create(i == 0);
+                buttonUID = $"advtoolbarplugin.button.{uid}.{buttonNumLast}";
+                var button2 = MagicToolbarButton.Create(buttonUID, i == 0);
                 button2.IsActive = true;
                 button.SubPanel.AddButton(button2, false);
             }

@@ -85,6 +85,11 @@ namespace Toolbar.UIElements.Buttons
         public ToolbarScrollView ScrollView { get; internal set; }
 
         /// <summary>
+        /// Unique ID used to identify the button via the Toolbar API. 
+        /// </summary>
+        public string UID { get; internal set; }
+
+        /// <summary>
         /// Boolean indicating whether the button should active. If false, containing panel will skip over this button when refilled.
         /// </summary>
         public bool IsActive

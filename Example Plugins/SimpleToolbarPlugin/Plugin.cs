@@ -34,7 +34,7 @@ namespace SimpleToolbarPlugin
 
         private static void InitCallback()
         {
-            delegateButton = ToolbarWrapper.CreateDelegateButtonWithIcon("Astral1", SayHello, delegate ()
+            delegateButton = ToolbarWrapper.CreateDelegateButtonWithIcon("simpletoolbarplugin.delegate", "Astral1", SayHello, delegate ()
             {
                 return new()
                 {
@@ -44,7 +44,7 @@ namespace SimpleToolbarPlugin
             delegateButton.IsActive = true;
             ToolbarWrapper.AddButtonToRootPanel(delegateButton);
 
-            conCmdButton = ToolbarWrapper.CreateConCmdButtonWithIcon("Astral1", "STP-ButtonCommandTest 9001", true);
+            conCmdButton = ToolbarWrapper.CreateConCmdButtonWithIcon("simpletoolbarplugin.concmd", "Astral1", "STP-ButtonCommandTest 9001", true);
             conCmdButton.IsActive = true;
             ToolbarWrapper.AddButtonToRootPanel(conCmdButton);
         }

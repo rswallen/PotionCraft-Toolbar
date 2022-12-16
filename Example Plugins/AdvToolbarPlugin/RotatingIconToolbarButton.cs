@@ -13,14 +13,14 @@ namespace AdvToolbarPlugin
     {
         internal static ManualLogSource Log => Plugin.Log;
 
-        public static RotatingIconToolbarButton Create()
+        public static RotatingIconToolbarButton Create(string buttonUID)
         {
             if (!GetTextures(out Texture2D active, out Texture2D idle, out Texture2D quest))
             {
                 return null;
             }
 
-            var button = ToolbarAPI.CreateCustomButton<RotatingIconToolbarButton>();
+            var button = ToolbarAPI.CreateCustomButton<RotatingIconToolbarButton>(buttonUID);
 
             button.spriteRenderer = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
             button.spriteRenderer.SetupToolbarSprite(ToolbarUtils.MakeSprite("RotatingButtonIdle", idle), false);

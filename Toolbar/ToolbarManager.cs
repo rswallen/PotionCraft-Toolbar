@@ -17,6 +17,8 @@ namespace Toolbar
         internal static GameObject RootAnchor;
         internal static PanelToolbarButton RootButton;
         internal static BaseToolbarPanel RootPanel;
+
+        internal static readonly List<BaseToolbarButton> Buttons = new();
         internal static readonly List<BaseToolbarPanel> SubPanels = new();
 
         internal static bool IsInitialised { get; private set; } = false;

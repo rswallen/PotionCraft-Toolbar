@@ -19,7 +19,7 @@ namespace Toolbar
             ToolbarAPI.RegisterInit(listener);
         }
 
-        public static DelegateToolbarButton CreateDelegateButtonWithIcon(string iconName, Action onRelease, Func<TooltipContent> getTooltip, bool randomizeColors = false)
+        public static DelegateToolbarButton CreateDelegateButtonWithIcon(string buttonUID, string iconName, Action onRelease, Func<TooltipContent> getTooltip, bool randomizeColors = false)
         {
             if (string.IsNullOrEmpty(iconName))
             {
@@ -27,11 +27,11 @@ namespace Toolbar
             }
 
             var sprIcon = ToolbarUtils.GetSpriteFromColoredIcon(iconName, randomizeColors);
-            var button = ToolbarAPI.CreateDelegateButton(sprIcon, onRelease, getTooltip);
+            var button = ToolbarAPI.CreateDelegateButton(buttonUID, sprIcon, onRelease, getTooltip);
             return button;
         }
 
-        public static ConCmdToolbarButton CreateConCmdButtonWithIcon(string iconName, string command, bool randomizeColors = false)
+        public static ConCmdToolbarButton CreateConCmdButtonWithIcon(string buttonUID, string iconName, string command, bool randomizeColors = false)
         {
             if (string.IsNullOrEmpty(iconName))
             {
@@ -39,11 +39,11 @@ namespace Toolbar
             }
 
             var sprIcon = ToolbarUtils.GetSpriteFromColoredIcon(iconName, randomizeColors);
-            var button = ToolbarAPI.CreateConCmdButton(sprIcon, command);
+            var button = ToolbarAPI.CreateConCmdButton(buttonUID, sprIcon, command);
             return button;
         }
 
-        public static SubPanelToolbarButton CreateSubPanelButtonWithIcon(string iconName, string panelURI, Func<TooltipContent> getTooltip, bool randomizeColors = false)
+        public static SubPanelToolbarButton CreateSubPanelButtonWithIcon(string buttonUID, string iconName, string panelURI, Func<TooltipContent> getTooltip, bool randomizeColors = false)
         {
             if (string.IsNullOrEmpty(iconName) || string.IsNullOrEmpty(panelURI))
             {
@@ -51,7 +51,7 @@ namespace Toolbar
             }
 
             var sprIcon = ToolbarUtils.GetSpriteFromColoredIcon(iconName, randomizeColors);
-            var button = ToolbarAPI.CreateSubPanelButton(sprIcon, panelURI, getTooltip);
+            var button = ToolbarAPI.CreateSubPanelButton(buttonUID, sprIcon, panelURI, getTooltip);
             return button;
         }
 

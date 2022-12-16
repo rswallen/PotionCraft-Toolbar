@@ -12,9 +12,9 @@ namespace AdvToolbarPlugin
     {
         internal static ManualLogSource Log => Plugin.Log;
 
-        public static MagicToolbarButton Create(bool revealOtherButtons)
+        public static MagicToolbarButton Create(string buttonUID, bool revealOtherButtons)
         {
-            var button = ToolbarAPI.CreateCustomButton<MagicToolbarButton>();
+            var button = ToolbarAPI.CreateCustomButton<MagicToolbarButton>(buttonUID);
 
             var iconName = ToolbarUtils.GetRandomIcon().name;
 

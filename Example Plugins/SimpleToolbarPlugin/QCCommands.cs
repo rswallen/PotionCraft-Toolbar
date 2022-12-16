@@ -10,6 +10,8 @@ namespace SimpleToolbarPlugin
     {
         private static ManualLogSource Log => Plugin.Log;
 
+        private static int buttonNumLast = 0;
+
         [Command("ButtonCommandTest", "Command that ConCmdToolbarButton will call", true, true, Platform.AllPlatforms, MonoTargetType.All)]
         public static void ButtonCommandTest(int number)
         {
@@ -21,10 +23,11 @@ namespace SimpleToolbarPlugin
         [Command("MakeDelegateButtonBatch", "Command that creates a given number of delegate buttons (that do nothing) to the root panel", true, true, Platform.AllPlatforms, MonoTargetType.Single)]
         public static void MakeDelegateButtonBatch(int number)
         {
-            for (int i = 0; i < number; i++)
+            for (int i = buttonNumLast; i < number; i++)
             {
+                var buttonUID = "simpletoolbarplugin.button." + i;
                 var iconName = ToolbarUtils.GetRandomIcon().name;
-                var button = ToolbarWrapper.CreateDelegateButtonWithIcon(iconName, null, delegate ()
+                var button = ToolbarWrapper.CreateDelegateButtonWithIcon(buttonUID, iconName, null, delegate ()
                 {
                     return new()
                     {
@@ -36,16 +39,18 @@ namespace SimpleToolbarPlugin
             }
         }
 
-        [Command("AddSubPanelToRoot", "Command that creates subpanel with the given panelURI", true, true, Platform.AllPlatforms, MonoTargetType.All)]
-        internal static void AddSubPanelToRoot(string panelURI)
+        [Command("AddSubPanelToRoot", "Command that creates subpanel with the given UID", true, true, Platform.AllPlatforms, MonoTargetType.All)]
+        internal static void AddSubPanelToRoot(string uid)
         {
-            if (ToolbarAPI.DoesToolbarPanelExist(panelURI))
+            string panelUID = "simpletoolbarplugin.panel." + uid;
+            if (ToolbarAPI.DoesToolbarPanelExist(panelUID))
             {
-                Log.LogInfo("ToolbarPanel with that URI already exists");
+                Log.LogInfo("ToolbarPanel with that UID already exists");
                 return;
             }
 
-            var button = ToolbarWrapper.CreateSubPanelButtonWithIcon("Hypnotoad", panelURI, delegate ()
+            var buttonUID = "simpletoolbarplugin.button." + uid;
+            var button = ToolbarWrapper.CreateSubPanelButtonWithIcon(buttonUID, "Hypnotoad", panelUID, delegate ()
             {
                 return new()
                 {
@@ -60,8 +65,9 @@ namespace SimpleToolbarPlugin
             button.IsActive = true;
             ToolbarAPI.AddButtonToRootPanel(button);
 
+            buttonUID = "simpletoolbarplugin.button." + uid + ".delegate";
             var iconName = ToolbarUtils.GetRandomIcon().name;
-            var button2 = ToolbarWrapper.CreateDelegateButtonWithIcon(iconName, null, delegate ()
+            var button2 = ToolbarWrapper.CreateDelegateButtonWithIcon(buttonUID, iconName, null, delegate ()
             {
                 return new()
                 {
@@ -72,20 +78,22 @@ namespace SimpleToolbarPlugin
             button.SubPanel.AddButton(button2);
         }
 
-        [Command("AddButtonsToSubPanel", "Command that adds a given number of dummy delegate buttons to a subpanel of a given panelURI", true, true, Platform.AllPlatforms, MonoTargetType.All)]
-        internal static void AddButtonsToSubPanel(string panelURI, int numButtons)
+        [Command("AddButtonsToSubPanel", "Command that adds a given number of dummy delegate buttons to a subpanel of a given UID", true, true, Platform.AllPlatforms, MonoTargetType.All)]
+        internal static void AddButtonsToSubPanel(string uid, int numButtons)
         {
-            var panel = ToolbarAPI.GetToolbarPanel(panelURI);
+            string panelUID = "simpletoolbarplugin.panel." + uid;
+            var panel = ToolbarAPI.GetToolbarPanel(panelUID);
             if (panel == null)
             {
                 Log.LogInfo("SubPanel does not exist");
                 return;
             }
 
-            for (int i = 0; i < numButtons; i++)
+            for (int i = buttonNumLast; i < numButtons; i++)
             {
+                var buttonUID = "simpletoolbarplugin.button." + i;
                 var iconName = ToolbarUtils.GetRandomIcon().name;
-                var button = ToolbarWrapper.CreateDelegateButtonWithIcon(iconName, null, delegate ()
+                var button = ToolbarWrapper.CreateDelegateButtonWithIcon(buttonUID, iconName, null, delegate ()
                 {
                     return new()
                     {
