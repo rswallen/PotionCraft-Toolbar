@@ -5,7 +5,7 @@ using HarmonyLib;
 
 namespace Toolbar
 {
-    [BepInPlugin("com.github.rswallen.potioncraft.toolbar", "Toolbar", "1.0.0")]
+    [BepInPlugin("com.github.rswallen.potioncraft.toolbar", "Toolbar", "2.0.0")]
     internal class ToolbarPlugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
