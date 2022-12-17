@@ -163,6 +163,7 @@ namespace Toolbar.UIElements.Buttons
             if (ParentPanel != null)
             {
                 ParentPanel.Refill();
+                ParentPanel.UpdateParentButtonLocked();
             }
         }
 
