@@ -18,7 +18,7 @@ namespace AdvToolbarPlugin
 
             var iconName = ToolbarUtils.GetRandomIcon().name;
 
-            button.spriteRenderer = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
+            button.spriteRenderer = ToolbarUtils.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
             button.spriteRenderer.SetupToolbarSprite(ToolbarUtils.GetSpriteFromColoredIcon(iconName, true), true);
 
             button.hoveredSprite = button.spriteRenderer.sprite;

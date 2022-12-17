@@ -22,7 +22,7 @@ namespace AdvToolbarPlugin
 
             var button = ToolbarAPI.CreateCustomButton<RotatingIconToolbarButton>(buttonUID);
 
-            button.spriteRenderer = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
+            button.spriteRenderer = ToolbarUtils.MakeRendererObj<SpriteRenderer>(button.gameObject, "MainRenderer", 100);
             button.spriteRenderer.SetupToolbarSprite(ToolbarUtils.MakeSprite("RotatingButtonIdle", idle), false);
 
             button.hoveredSprite = ToolbarUtils.MakeSprite("RotatingButtonActive", active);
@@ -30,7 +30,7 @@ namespace AdvToolbarPlugin
             button.lockedSprite = button.spriteRenderer.sprite;
             button.normalSprite = button.spriteRenderer.sprite;
 
-            button.spriteRendererIcon = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "IconRenderer", 110);
+            button.spriteRendererIcon = ToolbarUtils.MakeRendererObj<SpriteRenderer>(button.gameObject, "IconRenderer", 110);
             button.spriteRendererIcon.SetupToolbarSprite(ToolbarUtils.MakeSprite("RotatingButtonFront", quest, 0.5f), false);
 
             button.hoveredSpriteIcon = button.spriteRendererIcon.sprite;

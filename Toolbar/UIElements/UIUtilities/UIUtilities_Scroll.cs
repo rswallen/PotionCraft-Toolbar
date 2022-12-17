@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace Toolbar.UIElements
 {
-    public static partial class UIUtilities
+    internal static partial class UIUtilities
     {
         internal static Scroll ScrollTemplate
         {

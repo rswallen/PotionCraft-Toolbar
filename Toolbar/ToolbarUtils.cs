@@ -1,5 +1,6 @@
 ﻿using PotionCraft.ScriptableObjects;
 using System.IO;
+using Toolbar.UIElements;
 using UnityEngine;
 
 namespace Toolbar
@@ -34,6 +35,19 @@ namespace Toolbar
                 output = null;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Helper function for creating renderer components.
+        /// </summary>
+        /// <typeparam name="T">Type of renderer to create (eg: SpriteRenderer, SpriteMask).</typeparam>
+        /// <param name="parent">GameObject to attach the transform of the new gameObject to.</param>
+        /// <param name="objName">Name of the new gameObject.</param>
+        /// <param name="sortOrder">Value to set Renderer.sortingOrder to.</param>
+        /// <returns>Reference to freshly create Renderer of type T.</returns>
+        public static T MakeRendererObj<T>(GameObject parent, string objName, int sortOrder) where T : Renderer
+        {
+            return UIUtilities.MakeRendererObj<T>(parent, objName, sortOrder);
         }
 
         /// <summary>

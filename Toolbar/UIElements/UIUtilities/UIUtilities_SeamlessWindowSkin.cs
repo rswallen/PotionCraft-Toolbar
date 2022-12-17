@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Toolbar.UIElements
 {
-    public static partial class UIUtilities
+    internal static partial class UIUtilities
     {
         internal static SeamlessWindowSkin SkinTemplate
         {
