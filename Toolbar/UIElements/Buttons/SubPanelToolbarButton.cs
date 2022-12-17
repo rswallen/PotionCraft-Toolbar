@@ -10,7 +10,7 @@ namespace Toolbar.UIElements.Buttons
     {
         internal static T Create<T>(string panelUID) where T : SubPanelToolbarButton
         {
-            var button = BaseToolbarButton.Create<SubPanelToolbarButton>();
+            var button = BaseToolbarButton.Create<T>();
             button.spriteRendererBg = UIUtilities.MakeRendererObj<SpriteRenderer>(button.gameObject, "BgdRenderer", 90);
             button.spriteRendererBg.color = new(0.5f, 0.5f, 0.1f, button.bgAlpha);
             button.spriteRendererBg.enabled = Settings.ShowSubPanelIndicators;
