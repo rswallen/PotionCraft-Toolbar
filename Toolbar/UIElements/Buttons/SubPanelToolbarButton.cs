@@ -22,7 +22,7 @@ namespace Toolbar.UIElements.Buttons
             button.SubPanel.UID = panelUID;
 
             button.Locked = true;
-            return (T)button;
+            return button;
         }
 
         internal SpriteRenderer spriteRendererBg;
